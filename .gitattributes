@@ -1,0 +1,4 @@
+*.RData filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+*.shp filter=lfs diff=lfs merge=lfs -text
+arbos_2025/* filter=lfs diff=lfs merge=lfs -text
