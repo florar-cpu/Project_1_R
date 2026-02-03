@@ -1,6 +1,7 @@
 setwd("/Users/florarobertson/Documents/Project_1_R/arbos_2025")
 
 library(sf); library(dplyr); library(magrittr); library(ggplot2)
+library(viridis); library(RColorBrewer); library(wesanderson)
 
 # brazilian shapefile with harmonised ID code to disease data
 shp = sf::st_read("./data/shapefiles/shp_harm/Brazil_shp_harm_2022.shp") %>%
@@ -52,5 +53,21 @@ dd_imm = dd %>%
   dplyr::mutate(
     incidence = numcases / (population/100000) # cases per 100,000 persons
   )
+
+# Read in momentFM embeddings and PCA-reduced gaussian clusters from VS csv
+emb = read.csv("/Users/florarobertson/Documents/Project 1/momentfm_embeddings_clusters.csv")
+
+# Renaming code_immr column
+emb = emb %>%
+  rename(code_immr = emb_code_immr)
+
+# Plot shaded by cluster mapping PCA reduced GMM clusters
+# from momentFM embeddings
+shp %>%
+  dplyr::left_join(emb, by = join_by(code_immr)) %>%
+  ggplot() + 
+  geom_sf(aes(fill=as.factor(emb_cluster)), color=NA) +
+  theme_minimal() + 
+  scale_fill_viridis(option="magma", discrete=TRUE)
 
 
