@@ -3,6 +3,7 @@ setwd("/Users/florarobertson/Documents/Project_1_R/arbos_2025")
 library(sf); library(dplyr); library(magrittr); library(ggplot2)
 library(viridis)
 
+
 # brazilian shapefile with harmonised ID code to disease data
 shp = sf::st_read("./data/shapefiles/shp_harm/Brazil_shp_harm_2022.shp") %>%
   dplyr::filter(!name_mn %in% c("Lagoa Mirim", "Lagoa Dos Patos")) # remove lake borders
@@ -129,6 +130,5 @@ clust_ts = ggplot(dd_imm_clust, aes(x=Date, y=incidence, color=as.factor(code_im
   theme(legend.position="none")
 
 clust_ts
-
 
 
