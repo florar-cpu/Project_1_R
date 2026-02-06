@@ -53,4 +53,3 @@ dd_imm = dd %>%
     incidence = numcases / (population/100000) # cases per 100,000 persons
   )
 
-
